@@ -13,18 +13,18 @@ Foi criado um projeto de exemplo no GitHub mostrando o problema. Para exemplific
 
 Em nossa aplicação, todas as nossas classes de domínio implementam IEntity:
 
-``` csharp
+{% highlight C# %}
 public interface IEntity
 {
     int Id { get; }
 }
-```
+{% endhighlight %}
 
 > O Id é gerado pelo banco de dados.
 
 Classes auditáveis implementam IAuditable:
 
-``` csharp
+{% highlight C# %}
 public interface IAuditable
 {
     DateTime CreateAt { get; }
@@ -32,7 +32,7 @@ public interface IAuditable
     DateTime? UpdateAt { get; }
     IUser UpdateBy { get; }
 }
-```
+{% endhighlight %}
 
 > Os campos CreateAt e UpdateAt são gerados pelo banco de dados.
 
@@ -40,7 +40,7 @@ Repare que nossa interface expõe apenas o get. Isto é proposital pois não que
 
 Algumas classes de nosso domínio:
 
-``` csharp
+{% highlight C# %}
 public class CheckListItemTemplate : IEntity, IAuditable
 {
     public virtual int Id { get; protected set; }
@@ -79,7 +79,7 @@ public class Processo : IEntity
     public virtual Passo Passo { get; set; }
     public virtual IList CheckListItens { get; protected set; }
 }
-```
+{% endhighlight %}
 
 Passo.CheckListItemTemplate é uma lista de itens templates e Processo.CheckListItens é uma lista de itens em execução.
 
@@ -89,17 +89,17 @@ Passo.CheckListItemTemplate é uma lista de itens templates e Processo.CheckList
 
 No projeto web teremos as ViewModels IViewEntity que basicamente serão utilizadas para exibir/manipular dados nas views.
 
-``` csharp
+{% highlight C# %}
 public interface IViewEntity
 {
     int Id { get; set; }
 }
-```
+{% endhighlight %}
 
 Para converter de IEntity para IViewEntity (ou vice-versa) vamos utilizar o AutoMapper.
 Pensando em reaproveitamento teremos um controller base para operações de CRUD:
 
-``` csharp
+{% highlight C# %}
 [Authorize]
 public abstract class baseEntityController : Controller
     where TModel : class, BindSolution.Framework.Domain.IEntity
@@ -139,13 +139,13 @@ public abstract class baseEntityController : Controller
         return View("editor", vm);
     }
 }
-```
+{% endhighlight %}
 
 A baseEntityController terá algumas actions* como index, novo, editar e deletar e salvar (esta últma mostrada acima). As duas actions novo e editar o post irá para salvar.
 
 Desta forma nossos controllers ficaram bem enxutos:
 
-``` csharp
+{% highlight C# %}
 public class processosController : baseEntityController
 {
     public override void AddEntity(Processo model, ProcessoViewModel viewModel)
@@ -157,7 +157,7 @@ public class processosController : baseEntityController
         base.AddEntity(model, viewModel);
     }
 }
-```
+{% endhighlight %}
 
 Neste caso, precisávamos de que após salvar o processo, o primeiro Passo (ordenado pelo campo Ordem seguido do campo CreateAt) seja associado ao processo, então tivemos apenas que sobrescrever o método AddEntity.
 O AutoMapper ficará encarregado de converter um CheckListItemTemplate para um CheckListItem.
@@ -168,7 +168,7 @@ O AutoMapper ficará encarregado de converter um CheckListItemTemplate para um C
 
 Para nossos testes vamos utilizar um repositório fake Repository:
 
-``` csharp
+{% highlight C# %}
 public class Repository : IRepository
     where T : class, IEntity
 {
@@ -194,7 +194,7 @@ public class Repository : IRepository
 
     // ..
 }
-```
+{% endhighlight %}
 
 Em nossa camada de repositório o NHibernate é responsável por atualizar os dados da camada de domínio como é o caso da propriedade Id. Porém na camada de testes não existe (nem deve existir) qualquer ORM para realizar esta tarefa, então temos de gerenciar isto manualmente.
 
@@ -212,7 +212,7 @@ Esta exception é proposital afinal o passo atual é obrigatório para um proces
 
 Vamos configurar o TestInitialize para popular nosso repositório com alguns dados fictícios:
 
-``` csharp
+{% highlight C# %}
 var fix = new Fixture();
 var listPassos = fix.Build&gt;()
                             .Do((passo) =&gt; {
@@ -229,14 +229,14 @@ var listPassos = fix.Build&gt;()
 
 foreach (var item in listPassos)
     passoRepository.Store(item.Object);
-```
+{% endhighlight %}
 
 > Fixture é uma biblioteca chamada AutoFixture que nos ajuda a criar dados fictícios.
 Neste caso estamos criando uma lista de 10 passos cada um com 5 CheckListItemTemplate.
 
 Com nosso repositório preenchido, podemos criar nosso teste:
 
-``` csharp
+{% highlight C# %}
 [TestMethod]
 public void Salvar_novo_processo_modificar_data_atendimento_passo_atual()
 {
@@ -252,7 +252,7 @@ public void Salvar_novo_processo_modificar_data_atendimento_passo_atual()
     processo.Should().NotBeNull();
     processo.Passo.Should().NotBeNull();
 }
-```
+{% endhighlight %}
 
 ### O que está errado
 

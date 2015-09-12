@@ -41,7 +41,8 @@ Percebe como são repetitivas estas tarefas? Com Grunt o podemos automatizar tud
 
 Grunt roda como um modulo [Nodejs](http://nodejs.org/), sua instalação é bem simples: `npm install -g grunt-cli`, na página [Getting started](http://gruntjs.com/getting-started) você encontra mais detalhes sobre a instalação.
 
-Não vou entrar em detalhes sobre o que é Nodejs ou como instalá-lo (sugiro instalação via [Chocolatey](http://blog.ridermansb.me/post/47151976057/apt-get-para-windows-conheca-o-chocolatey) `cinst nodejs.install`) pois não é o objetivo deste post.
+Não vou entrar em detalhes sobre o que é Nodejs ou como instalá-lo (sugiro instalação via [Chocolatey]({% post_url 2014-04-04-app-get-para-windows-conheca-o-chocolatey %}) `cinst nodejs.install`) pois não é o objetivo deste post.
+
 
 ## Preparando o ambiente
 Tipicamente Grunt requer dois arquivos `package.json` responsável por descrever o projeto e `Gruntfile.js` onde você irá definir suas tasks e carregar os plugins.

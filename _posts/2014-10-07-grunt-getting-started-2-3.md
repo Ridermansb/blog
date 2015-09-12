@@ -150,7 +150,7 @@ No decorrer do desenvolvimento, temos pelo menos dois ambientes: O de dev e o de
 
 É comum que no ambiente de dev tenhamos de executar uma série de tasks, e o mesmo acontece quando vamos publicar uma versão (dist).
 
-Na versão de dev, como dito no [post anterior](http://blog.ridermansb.me/post/47231477402/grunt-getting-started-1-3), eu tenho de:
+Na versão de dev, como dito no [post anterior]({% post_url 2013-10-22-grunt-getting-started-1-3 %}) , eu tenho de:
 
  * Compilar meus arquivos sass e coffee
  * Executar testes
