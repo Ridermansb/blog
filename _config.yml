@@ -40,7 +40,7 @@ owner:
   avatar: bio-photo.jpg
   bio: "I'm curious, enthusiastic and student most of the time, the rest of the time I write code."
   email: ridermansb@gmail.com
-  disqus-shortname: ridermansb
+  disqus-shortname: # ridermansb
   twitter: ridermansb #username
   facebook: #username
   google:
@@ -51,7 +51,7 @@ owner:
     ad-slot:
   bing-verify:
   github: ridermansb #username
-  stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+  stackoverflow: 491181/ridermansb #from a "http://stackoverflow.com/users/123456/username" link
   linkedin: #username
   xing: #username
   instagram: #username
