@@ -48,14 +48,17 @@ Tipicamente Grunt requer dois arquivos `package.json` responsável por descrever
 
 **package.json**
 
-    {
-      "author": "Riderman de Sousa Barbosa",
-      "name": "grunt-started",
-      "version": "0.1.0",
-      "devDependencies": {
-        "grunt": "~0.4.0"
-      }
-    }
+{% highlight Json %}
+{
+  "author": "Riderman de Sousa Barbosa",
+  "name": "grunt-started",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "~0.4.0"
+  }
+}
+{% endhighlight %}
+
 
 A propriedade mais importante é a `devDependencies` que contém todas as dependências do seu projeto. Repare que nossa primeira dependência é o próprio Grunt. Isto porque `grunt-cli` serve apenas para rodar a versão ao lado do `Gruntfile.js`.
 
@@ -65,7 +68,9 @@ A propriedade mais importante é a `devDependencies` que contém todas as depend
 
 O próximo passo é pedir ao npm para instalar todas as dependências descritas em nosso `package.json` (em nosso caso apenas o grunt);
 
-`npm install`
+{% highlight Bash %}
+npm install
+{% endhighlight %}
 
 ## Primeira task (coffee)
 
@@ -79,35 +84,41 @@ Para esta primeira task vamos compilar nossos arquivos `.coffee` para `.js`.
 
 Primeiramente precisamos instalar o [plugin](https://github.com/gruntjs/grunt-contrib-coffee):
 
-`npm install grunt-contrib-coffee --save-dev`
+{% highlight Bash %}
+npm install grunt-contrib-coffee --save-dev
+{% endhighlight %}
+
 
 `--save-dev` adiciona este plugin como dependência no nosso arquivo `package.json`. Após executado o arquivo terá uma linha extra:
 
+{% highlight Json %}
+"devDependencies": {
+  "grunt": "~0.4.0",
+  "grunt-contrib": "~0.6.1"  &lt;-- Linha extra
+}
+{% endhighlight %}
 
-    "devDependencies": {
-      "grunt": "~0.4.0",
-      "grunt-contrib": "~0.6.1"  &lt;-- Linha extra
-    }
 
 **Configurando**
 Como dito anteriormente, grunt requer dois arquivos `package.json` e o `Gruntfile.js`. Então crie um novo arquivo com o nome `Gruntfile.js` e o seguinte conteúdo:
 
-
-    module.exports = function(grunt) {
-      // Configurações
-      grunt.initConfig({
-        coffee:{
-            compile: {
-                files: {
-                    "main.js": "main.coffee"
-                }
+{% highlight JavaScript %}
+module.exports = function(grunt) {
+  // Configurações
+  grunt.initConfig({
+    coffee:{
+        compile: {
+            files: {
+                "main.js": "main.coffee"
             }
         }
-      });
+    }
+  });
 
-      // Plugins
-      grunt.loadNpmTasks('grunt-contrib-coffee');
-    };
+  // Plugins
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+};
+{% endhighlight %}
 
 O arquivo nada mais é do que uma configuração das tasks.
 Como configurar depende de cada plugin, neste caso a documentação deste plugin encontra-se [neste link](https://github.com/gruntjs/grunt-contrib-coffee)
@@ -116,15 +127,20 @@ Como configurar depende de cada plugin, neste caso a documentação deste plugin
 
 Como ainda não temos o arquivo, vamos criá-lo:
 
-    calc = (a, b) -&gt; a + b
-    result = calc 1, 2
-    console.log result
+{% highlight JavaScript %}
+calc = (a, b) -&gt; a + b
+result = calc 1, 2
+console.log result
+{% endhighlight %}
+
 
 _Simples, e não faz nada útil. Mas para teste é suficiente! :)_
 
 **Testando**
 
-`grunt coffee`
+{% highlight JavaScript %}
+grunt coffee
+{% endhighlight %}
 
 E um novo arquivo `main.js` é criado.
 
@@ -133,44 +149,53 @@ E um novo arquivo `main.js` é criado.
 Para esta segunda task, vamos vigiar este arquivo, caso sofra alteração grunt deverá compilar novamente para `.js`.
 Para realizar esta tarefa precisaremos do plugin [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch).
 
-`npm install grunt-contrib-watch --save-dev`
+{% highlight Javascript %}
+npm install grunt-contrib-watch --save-dev
+{% endhighlight %}
 
 Novamente uma nova linha é adicionada em nosso `package.json`:
 
+{% highlight JavaScript %}
+...
+  "devDependencies": {
     ...
-      "devDependencies": {
-        ...
-        "grunt-contrib-watch": "~0.3.1" &lt;-- Linha adicionada
-        ...
+    "grunt-contrib-watch": "~0.3.1" &lt;-- Linha adicionada
+    .
+{% endhighlight %}
+..
 
 
 Da mesma forma, precisaremos carregar a task para o nodejs. Altere o arquivo `Gruntfile.js`:
 
-    module.exports = function(grunt) {
-      // Configurações
-      grunt.initConfig({
-        coffee:{
-            compile: {
-                files: {
-                    "main.js": "main.coffee"
-                }
+{% highlight Javascript %}
+module.exports = function(grunt) {
+  // Configurações
+  grunt.initConfig({
+    coffee:{
+        compile: {
+            files: {
+                "main.js": "main.coffee"
             }
-        },
-        watch: { // &lt;---- Nova configuração ----
-            files: 'main.coffee',
-            tasks: ['coffee']
         }
+    },
+    watch: { // &lt;---- Nova configuração ----
+        files: 'main.coffee',
+        tasks: ['coffee']
+    }
 
-      });
+  });
 
-      // Plugins
-      grunt.loadNpmTasks('grunt-contrib-coffee');
-      grunt.loadNpmTasks('grunt-contrib-watch'); // &lt;-- Carrega a task para o NodeJS ----
-    };
+  // Plugins
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-watch'); // &lt;-- Carrega a task para o NodeJS ----
+};
+{% endhighlight %}
 
 Agora é só utilizar:
 
-`grunt watch`
+{% highlight JavaScript %}
+grunt watch
+{% endhighlight %}
 
 Tente realizar uma modificação qualquer no arquivo `main.coffee` e veja o que acontece.
 
@@ -181,27 +206,27 @@ Baixe também o [jquery](http://jquery.com/download/) e adicione-o ao nosso proj
 
 Após feita a instalação, modifique seu `Gruntfile.js`
 
-    uglify: {
-        my_target: {
-          files: {
-            'main.min.js': ['main.js']
-          }
-        }
+{% highlight JavaScript %}
+uglify: {
+    my_target: {
+      files: {
+        'main.min.js': ['main.js']
       }
-    concat: {
-            basic: {
-                src: ['jquery-1.9.1.js', 'main.js'],
-                dest: 'all.js'
-            }
+    }
+  }
+concat: {
+        basic: {
+            src: ['jquery-1.9.1.js', 'main.js'],
+            dest: 'all.js'
         }
-        ...
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    }
+    ...
+grunt.loadNpmTasks('grunt-contrib-concat');
+grunt.loadNpmTasks('grunt-contrib-uglify');
+{% endhighlight %}
 
 
 Então é só rodar: `grunt uglify` ou `grunt concat`.
-
-
 
 Por enquanto é só, se desejar todo o código utilizado neste post encontra-se [neste link](https://friendco.de/ui#!user/ridermansb/grunt-started).
 No próximo post da série veremos como executar várias tasks de uma vez, executar tasks seguindo uma configuração etc.. Ficará bem mais interessante e faremos algo útil :).

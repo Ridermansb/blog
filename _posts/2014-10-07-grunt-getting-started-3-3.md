@@ -10,16 +10,21 @@ Este é o terceiro post da série sobre [Grunt](http://gruntjs.com/)
 
 * [Getting started]({% post_url 2013-10-22-grunt-getting-started-1-3 %})
 * [Automação]({% post_url 2014-10-07-grunt-getting-started-2-3 %})
-* [Customizações]({% post_url 2014-10-07-grunt-getting-started-3-3 %})3 %})
+* [Customizações]({% post_url 2014-10-07-grunt-getting-started-3-3 %})
+
+Todo o código utilizado encontra-se no [Github](https://github.com/Ridermansb/grunt-started)
+{: .notice}
 
 -----------------
 
 # Tarefas customizadas
 Você pode criar sua própria task e definir sua lógica. Exemplo:
 
-    grunt.registerTask('custom', 'My custom task', function() {
-      grunt.log.writeln('Seu código rodando aqui...');
-    });
+{% highlight Javascript %}
+grunt.registerTask('custom', 'My custom task', function() {
+  grunt.log.writeln('Seu código rodando aqui...');
+});
+{% endhighlight %}
 
 A documentação do objeto `grunt` está disponível na [documentação da API](http://gruntjs.com/api/grunt)
 
@@ -27,22 +32,26 @@ Para rodar sua task, utilize a mesma nomenclatura de uma task normal: `grunt cus
 
 Você pode inclusive passar targets para sua function:
 
-    grunt.registerTask('custom', 'My custom task', function(arg1, arg2) {
-      grunt.log.writeln('Seu código rodando aqui...');
-      if (arg1)
-        grunt.log.writeln('Arg1: ' + arg1);
-     if (arg2)
-        grunt.log.writeln('Arg2: ' + arg2);
-    });
+{% highlight Javascript %}
+grunt.registerTask('custom', 'My custom task', function(arg1, arg2) {
+  grunt.log.writeln('Seu código rodando aqui...');
+  if (arg1)
+    grunt.log.writeln('Arg1: ' + arg1);
+ if (arg2)
+    grunt.log.writeln('Arg2: ' + arg2);
+});
+{% endhighlight %}
 
 Para executar: `grunt custom:Argumento1:Arqumento2`
 
 Function nada mais é do que um callback executado logo após a execução da task.
 Caso já tenha definido uma task (por exemplo `coffee`) nas configurações, então a task é executada e logo em seguida o callback:
 
-    grunt.registerTask('coffee', 'Log coffee compile.', function() {
-      grunt.log.writeln('coffee:' + this.target + ' compiled!');
-    });
+{% highlight Javascript %}
+grunt.registerTask('coffee', 'Log coffee compile.', function() {
+  grunt.log.writeln('coffee:' + this.target + ' compiled!');
+});
+{% endhighlight %}
 
 Desta forma, primeiro `coffee` será executado (compilado os arquivos JS) em seguida o callback.
 
@@ -57,14 +66,16 @@ Por exemplo, muitas tasks como a Concat possui uma opção chamada `banner` que 
 
 Vamos supor que em nossa empresa seja obrigatório adicionar no topo dos arquivos JS um texto e a data em que o arquivo foi gerado. Com Grunt poderíamos criar uma variável com este texto e utilizá-la em todas as nossas tasks:
 
-    concat: {
-        options: {
-            banner: '/* <%= copy %> */\n',
-          },
+{% highlight Javascript %}
+concat: {
+    options: {
+        banner: '/* <%= copy %> \*/\n',
+      },
 
-    ...
+...
 
-    copy: 'Desenvolvido por Riderman em <%= grunt.template.today("yyyy-mm-dd") %>'
+copy: 'Desenvolvido por Riderman em <%= grunt.template.today("yyyy-mm-dd") %>'
+{% endhighlight %}
 
 Bem simples, tudo o que temos de fazer é colocar nossa variável entre `<%=` e `%>` e o Grunt fará o resto.
 O resultado é: `/* Desenvolvido por Riderman em 2013-04-22 */`

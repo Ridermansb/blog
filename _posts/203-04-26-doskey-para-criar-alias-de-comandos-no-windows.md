@@ -9,7 +9,7 @@ tags: windows command-line doskey
 Eu confesso, sou fã do MacOS e do Ubuntu. Em termos de designer os dois deixaram o Windows XP/Vista/7/8 e acredito que até o 9 (quando sair rs) bem para trás. Em termos de recursos e usabilidade eu não sei, nunca trabalhei efetivamente com nenhum dos dois. Meus conhecimentos se limitam à VMs de testes que instalei para conhecer os dois sistemas operacionais.
 
 O pouco que conheço dos recursos, já sinto falta no Windows, por exemplo o apt-get do Linux. Uma ótima ferramenta para você instalar e atualizar aplicativos via linha de comando.
-Felizmente, existem soluções relativamente semelhantes para Windows (no caso do apt-get, o [Chocolatey por exemplo](http://blog.ridermansb.me/post/47151976057/apt-get-para-windows-conheca-o-chocolatey)).
+Felizmente, existem soluções relativamente semelhantes para Windows (no caso do apt-get, o [Chocolatey por exemplo]({% post_url 2014-04-04-app-get-para-windows-conheca-o-chocolatey %}).
 
 Neste post vou mostrar como utilizar o `doskey`, uma ferramenta nativa do Windows para criar alias de comandos DOS (igualmente o comando `alias` no MacOS e Linux).
 
@@ -20,7 +20,6 @@ Em diversas ocasiões, quando trabalhamos via linha de comandos, temos de repeti
 `dir /AD /ON /W`
 
 ![Dir para listar diretórios ordenados em ordem alfabética no DOS]({{ site.assets }}/doskey-para-criar-alias-de-comandos-no-windows/dir.jpg)
-
 
 Imagine se toda vez que desejarmos listar os diretórios desta forma, tivermos de digitar todo o comando novamente.
 Ficaria inviável.
@@ -35,7 +34,6 @@ Exemplo: `alias documents='cd ~/Documents'`, sempre que digitar `documents` o co
 Neste post vou explicar como configurar o doskey para listar os diretórios em ordem alfabética e lado a lado com o comando `dird`.
 
 # Solução
-
 Doskey realiza a mesma função que o `alias` do Linux/Mac, sua utilização é bem parecida `dosley <alias>=<comando>`. Então vamos criar nossa primeira alias:
 Com o DOS aberto digite:
 
@@ -59,7 +57,6 @@ Basicamente, sempre que uma janela do DOS for aberta, um arquivo `autorun.bat` s
  * Abra o regedit e procure pela entrada `HKEY_CURRENT_USER\Software\Microsoft\Command Processor`
  * Adicione uma nova entrada com o nome `AutoRun` e o valor como o caminho completo para nosso arquivo `autorun.bat`.
 
-
 ![Editando o regedit para persistir o doskey]({{ site.assets }}/doskey-para-criar-alias-de-comandos-no-windows/regedit.jpg)
 
 Agora é só testar, feche o DOS e abra novamente.
@@ -77,8 +74,6 @@ Na [página da ferramenta](http://technet.microsoft.com/en-us/library/cc753867(v
 
  * `doskey /macros`: Lista todas as macros configuradas
  * `doskey /history`: Histórico de comandos executados no DOS
-
-
 
 # Alias para Sublime Text 2
 
