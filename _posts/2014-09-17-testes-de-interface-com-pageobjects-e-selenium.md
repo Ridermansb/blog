@@ -33,7 +33,7 @@ Vamos testar uma tela simples de logon, com dois inputs `login` e `senha`  e um 
 ## Specs
 Temos de testar as 3 situações, usuário não digitou nenhum dado, usuário digitou dados incorretos ou usuário digitou dados corretos. Todas descritas na epsecificação abaixo:
 
-{% highlight Gherkin (Cucumber) %}
+{% highlight Cucumber %}
 Feature: Logon
 
 Scenario Outline: Ao clicar em logon sem informar usuário e senha o sistema deve exibir uma mensagem
